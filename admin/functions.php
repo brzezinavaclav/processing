@@ -1,6 +1,27 @@
 <?php
 include __DIR__.'/init.php';
-
+session_start();
+function logged(){
+    if(isset($_SESSION['user'])) return true;
+}
+if(isset($_POST['login'])){
+    if (empty($_POST['username']) || empty($_POST['password'])) {
+        $error = "Username or Password is invalid";
+    }
+    else{
+        $username = mysqli_real_escape_string($link,$_POST['username']);
+        $password = mysqli_real_escape_string($link,$_POST['password']);
+        if($result = mysqli_query($link, "SELECT * FROM `users` WHERE username='$username' AND password='$password'")) {
+            if(mysqli_num_rows($result) == 1) $user = mysqli_fetch_array($result);
+            $_SESSION['user'] = $user[1];
+            header("Location:$root");
+        }
+        $error = '<b>SQL error! </b>' . mysqli_error($link);
+    }
+}
+if(isset($_GET['logout'])){
+    session_destroy();
+}
 if(isset($_GET['get_orders'])){
     if($result = mysqli_query($link, "SELECT * FROM `subscription` ")) {
         $data;

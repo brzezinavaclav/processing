@@ -1,3 +1,8 @@
+<?php
+    include 'functions.php';
+    if(logged());
+    else header("Location:login.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +17,10 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/dataTables.min.js"></script>
+    <script src="js/functions.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -23,7 +32,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">Brand</a>
+            <a class="navbar-brand" href="index.php">Brand</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div class="hidden-md hidden-lg">
@@ -34,11 +43,9 @@
                 </ul>
             </div>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> login@example.cz<span class="caret"></span></a>
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['user']; ?><span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
+                        <li><a href="?logout">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -48,15 +55,18 @@
 <body>
 <div class="col-md-2" id="sidebar">
         <ul class="list-group">
-            <li class="list-group-item active"><a href="index.html"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-            <li class="list-group-item"><a href="orders.html"><span class="glyphicon glyphicon-list-alt"></span> Orders</a></li>
-            <li class="list-group-item"><a href="services.html"><span class="glyphicon glyphicon-pushpin"></span> Services</a></li>
+            <li class="list-group-item active"><a href="?p=dashboard"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+            <li class="list-group-item"><a href="?p=orders"><span class="glyphicon glyphicon-list-alt"></span> Orders</a></li>
+            <li class="list-group-item"><a href="?p=services"><span class="glyphicon glyphicon-pushpin"></span> Services</a></li>
         </ul>
 </div>
-<div class="col-md-10">
+<div class="col-md-10" id="content">
+    <?php
+    if(!empty(isset($_GET['p']))){
+        include $_GET['p'].'.php';
+    }
+    else include 'dashboard.php';
+    ?>
 </div>
-</body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

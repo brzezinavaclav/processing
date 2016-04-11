@@ -1,4 +1,5 @@
 <?php
+$root = '/processing/admin/';
 /*MySQLi*/
 $link = mysqli_connect("127.0.0.1", "root", "", "processing");
 

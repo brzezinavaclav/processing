@@ -71,6 +71,7 @@
         </div>
     </div>
 </section>
+<div style="min-height: 235px;"></div>
 <footer class="section colored">
     <div class="container">
         <p><a class="navbar-brand" href="/processing">Brand</a></p>
@@ -140,7 +141,7 @@
                 'success': function(data) {
                     if (data['error']=='no') {
                         clearInterval(interVal);
-                        $('#payment_form').html('<h1><span class="glyphicon glyphicon-ok"></span></h1><h5>We recieved your payment</h5>');
+                        $('#payment_form').html('<h1><span class="glyphicon glyphicon-ok"></span></h1><h5>We recieved your payment</h5><a href="#">Back</a>');
                     }
                     else alert(data['message']);
                 }
