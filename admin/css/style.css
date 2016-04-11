@@ -5,9 +5,15 @@ body{
     padding-top: 50px;
 }
 #sidebar{
-    height: 100%;
-    background: #222;
-    padding: 0px;
+    display: none;
+}
+@media(min-width:992px){
+    #sidebar{
+        height: 100%;
+        background: #222;
+        padding: 0px;
+        display: block;
+    }
 }
 .list-group-item{
     border: none;
