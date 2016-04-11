@@ -14,8 +14,8 @@
     <![endif]-->
 </head>
 <body>
-<nav class="navbar navbar-default navbar-static-top">
-    <div class="container">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
@@ -23,7 +23,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/processing">Brand</a>
+            <a class="navbar-brand" href="index.html">Brand</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
@@ -41,52 +41,15 @@
 <body>
 <div class="col-md-2" id="sidebar">
         <ul class="list-group">
-            <li class="list-group-item active"><a href="#"><span class="glyphicon glyphicon-pushpin"></span> Orders</a></li>
-            <li class="list-group-item"><a href="#"><span class="glyphicon glyphicon-pushpin"></span> Services</a></li>
-            <li class="list-group-item"><a href="#"><span class="glyphicon glyphicon-pushpin"></span> Link</a></li>
+            <li class="list-group-item active"><a href="index.html"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+            <li class="list-group-item"><a href="orders.html"><span class="glyphicon glyphicon-list-alt"></span> Orders</a></li>
+            <li class="list-group-item"><a href="services.html"><span class="glyphicon glyphicon-pushpin"></span> Services</a></li>
         </ul>
 </div>
 <div class="col-md-10">
-    <div class="container-fluid">
-        <h1>Orders</h1>
-        <table class="table table-condensed" id="orders">
-            <thead>
-                <tr><th>Username</th><th>Email</th><th>Service</th><th>Address</th><th>Status</th><th>Admin</th></tr>
-            </thead>
-        </table>
-    </div>
 </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="js/dataTables.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function(){
-        $('#orders').DataTable( {
-            "ajax": "functions.php?get_orders",
-            "columns": [
-                { "data": "username" },
-                { "data": "email" },
-                { "data": "service" },
-                { "data": "address" },
-                { "data": "status" },
-                { "data": "admin" }
-            ],
-            "iDisplayLength": 10
-        } );
-    });
-    function confirm(id){
-        $.ajax({
-            'url': "functions.php?cunfirm&id="+id,
-            'dataType': "json",
-            'success': function(data) {
-                if (data['error']=='no') {
-                    $('a[href="javascript(confirm('+id+'));"]').replaceWith('<span>'+data['timestamp']+'</span>');
-                }
-                if (data['error']=='yes') alert(data['message']);
-            }
-        });
-    }
-</script>
 </body>
 </html>

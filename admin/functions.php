@@ -1,28 +1,66 @@
 <?php
 include __DIR__.'/init.php';
 
-/*Get orders*/
 if(isset($_GET['get_orders'])){
     if($result = mysqli_query($link, "SELECT * FROM `subscription` ")) {
         $data;
         while($row = mysqli_fetch_assoc($result)){
             !empty($row['transaction']) ? $status = "Paid" : $status = "Not paid";
-            !empty($row['confirm']) ? $admin = '<span>'.$row['confirm'].'</span>' : $admin = '<a href="javascript:(confirm('.$row['id'].'));" class="btn btn-sm btn-primary">Confirm</a>';
+            !empty($row['confirm']) ? $processed = '<span>'.$row['confirm'].'</span>' : $processed = '<a href="javascript:(confirm('.$row['id'].'));" class="btn btn-xs btn-primary">Confirm</a>';
+            $actions = '&nbsp;<a href="javascript:delete_order('.$row['id'].');"><span class="glyphicon glyphicon-trash"></span></a>';
             $data[] = array(
                 'address' => $row['address'],
                 'username' => $row['username'],
                 'email' => $row['email'],
                 'service' => $row['service'],
                 'status' => $status,
-                'admin' => $admin,
+                'processed' => $processed,
+                'actions' => $actions
             );
         }
         echo json_encode(array('data' => $data));
     }
     else echo json_encode(array('error' => 'yes', 'message' => '<b>SQL error! </b>' . mysqli_error($link)));
 }
+if(isset($_GET['delete_order'])){
+    if($result = mysqli_query($link, "DELETE FROM `subscription` WHERE id=".$_GET['id'])) echo json_encode(array('error' => 'no'));
+    else echo json_encode(array('error' => 'yes', 'message' => '<b>SQL error! </b>' . mysqli_error($link)));
+}
+if(isset($_GET['get_services'])){
+    if($result = mysqli_query($link, "SELECT * FROM `services` ")) {
+        $data;
+        while($row = mysqli_fetch_assoc($result)){
+            $data[] = array(
+                'service' => $row['service'],
+                'price' => $row['price'],
+                'actions' => '<a href="javascript:service_modal('.$row['id'].');"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;<a href="javascript:delete_service('.$row['id'].');"><span class="glyphicon glyphicon-trash"></span></a>'
+            );
+        }
+        echo json_encode(array('data' => $data));
+    }
+    else echo json_encode(array('error' => 'yes', 'message' => '<b>SQL error! </b>' . mysqli_error($link)));
+}
+if(isset($_GET['get_service'])){
+    if($result = mysqli_query($link, "SELECT * FROM `services` WHERE id='".$_GET['id']."' LIMIT 1")) {
+        $row = mysqli_fetch_assoc($result);
+        echo json_encode(array('service' => $row['service'], 'price' => $row['price']));
+    }
+    else echo json_encode(array('error' => 'yes', 'message' => '<b>SQL error! </b>' . mysqli_error($link)));
+}
+if(isset($_GET['delete_service'])){
+    if($result = mysqli_query($link, "DELETE FROM `services` WHERE id=".$_GET['id'])) echo json_encode(array('error' => 'no'));
+    else echo json_encode(array('error' => 'yes', 'message' => '<b>SQL error! </b>' . mysqli_error($link)));
+}
+if(isset($_GET['edit_service'])){
+    if($result = mysqli_query($link, "UPDATE `services` SET service='".$_GET['service']."', price='".$_GET['price']."' WHERE id='".$_GET['id']."'")) echo json_encode(array('error' => 'no'));
+    else echo json_encode(array('error' => 'yes', 'message' => '<b>SQL error! </b>' . mysqli_error($link)));
+}
+if(isset($_GET['create_service'])){
+    if($result = mysqli_query($link, "INSERT INTO `services` VALUES (NULL, '".$_GET['service']."', '".$_GET['price']."')")) echo json_encode(array('error' => 'no'));
+    else echo json_encode(array('error' => 'yes', 'message' => '<b>SQL error! </b>' . mysqli_error($link)));
+}
 if(isset($_GET['confirm'])){
-    if($result = mysqli_query($link, "UPDATE `subscription` SET ´confirm´=". date('Y-m-d H:i:s'."WHERE ´id´=".$_GET['id']))){
+    if($result = mysqli_query($link, "UPDATE `subscription` SET confirm='".date('Y-m-d H:i:s')."' WHERE id=".$_GET['id'])){
         echo json_encode(array('error' => 'no', 'timestamp' => date('Y-m-d H:i:s')));
     }
     else echo json_encode(array('error' => 'yes', 'message' => '<b>SQL error! </b>' . mysqli_error($link)));

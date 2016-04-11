@@ -1,6 +1,17 @@
 html, body{
     height: 100%;
 }
+body{
+    padding-top: 50px;
+}
+a{
+    color: #374760;
+}
+a:focus, a:hover{
+    color: #00bcd4;
+    text-decoration: none;
+    outline: none;
+}
 h1, h2 h3, h4, h5, h6{
     color: #374760;
 }
@@ -25,10 +36,6 @@ h1, h2 h3, h4, h5, h6{
     margin-top: 10px;
     font-weight: 600;
     color: #374760;
-}
-a:focus, a:hover {
-    color: #00bcd4;
-    text-decoration: underline;
 }
 .jumbotron{
     background-color: #ededed;
@@ -90,11 +97,6 @@ a:focus, a:hover {
 }
 .text-blue{
     color: #4c5667;
-}
-.btn {
-    border-radius: 2px;
-    padding: 8px 16px;
-    outline: none;
 }
 .btn-rounded {
     border-radius: 2em;
