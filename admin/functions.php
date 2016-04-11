@@ -13,6 +13,7 @@ if(isset($_GET['get_orders'])){
                 'username' => $row['username'],
                 'email' => $row['email'],
                 'service' => $row['service'],
+                'period' => $row['period'].' month',
                 'status' => $status,
                 'processed' => $processed,
                 'actions' => $actions
