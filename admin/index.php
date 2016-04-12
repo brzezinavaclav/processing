@@ -32,14 +32,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php">Brand</a>
+            <a class="navbar-brand" href="<?php echo $root; ?>">Brand</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div class="hidden-md hidden-lg">
                 <ul class="nav navbar-nav navbar-left">
-                <li><a href="index.html"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-                <li><a href="orders.html"><span class="glyphicon glyphicon-list-alt"></span> Orders</a></li>
-                <li><a href="services.html"><span class="glyphicon glyphicon-pushpin"></span> Services</a></li>
+                <li><a href="?p=dashboard"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+                <li><a href="?p=orders"><span class="glyphicon glyphicon-list-alt"></span> Orders</a></li>
+                <li><a href="?p=services"><span class="glyphicon glyphicon-pushpin"></span> Services</a></li>
                 </ul>
             </div>
             <ul class="nav navbar-nav navbar-right">
@@ -52,7 +52,6 @@
         </div>
     </div>
 </nav>
-<body>
 <div class="col-md-2" id="sidebar">
         <ul class="list-group">
             <li class="list-group-item active"><a href="?p=dashboard"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>

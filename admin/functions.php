@@ -21,6 +21,7 @@ if(isset($_POST['login'])){
 }
 if(isset($_GET['logout'])){
     session_destroy();
+    header("Location:$root");
 }
 if(isset($_GET['get_orders'])){
     if($result = mysqli_query($link, "SELECT * FROM `subscription` ")) {
